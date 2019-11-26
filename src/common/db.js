@@ -1,6 +1,6 @@
 import pgPromise from 'pg-promise';
 
-const pgp = pgPromise();
+const pgp = pgPromise({ noLocking: true });
 
 export default pgp({
   host: process.env.DB_HOST,
