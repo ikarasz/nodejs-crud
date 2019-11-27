@@ -1,12 +1,9 @@
 import express from 'express';
-import service from './service.js';
+import controller from './controller.js';
 
 const router = express.Router();
 
-router.get('/', async (req, res) => res.send({
-  db: Number(await service.isDBAccessible()),
-}));
-
+router.get('/', controller.getSystemStatus);
 router.all('/', (req, res) => res.sendStatus(405));
 
 export default router;
