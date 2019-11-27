@@ -1,10 +1,11 @@
 import db from '../../db/models/index.js';
+import log from '../common/logger.js';
 
 async function connect() {
   try {
     await db.sequelize.authenticate();
   } catch (err) {
-    console.log('Cannot establish db connection: ', err);
+    log('Cannot establish db connection: ', err);
     throw new Error('Database connection has been refused');
   }
 }
