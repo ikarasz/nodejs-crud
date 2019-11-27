@@ -8,8 +8,8 @@
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "mocha -r esm src/**/*.test.js",
     "test:integration": "NODE_ENV=test mocha -r esm test/**/*.test.js",
-    "start": "node --experimental-modules src/server.js",
-    "start:dev": "nodemon --experimental-modules src/server.js",
+    "start": "node --experimental-modules src/index.js",
+    "start:dev": "nodemon --experimental-modules src/index.js",
     "lint": "eslint --ext .js ."
   },
   "repository": {

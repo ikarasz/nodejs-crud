@@ -1,9 +1,4 @@
-import express from 'express';
 import '../environment';
-import decorateApp from '../src/routes';
+import server from '../src/app.js';
 
-export default () => {
-  const app = express();
-  decorateApp(app);
-  return app;
-};
+export default server;

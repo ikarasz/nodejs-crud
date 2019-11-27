@@ -1,12 +1,10 @@
 import request from 'supertest';
-import setup from './setup';
+import app from './setup';
 
 describe('/heartbeat with working ENV vars', () => {
-  let app;
   let server;
 
   beforeEach((done) => {
-    app = setup();
     server = app.listen((err) => (err ? done(err) : done()));
   });
 
