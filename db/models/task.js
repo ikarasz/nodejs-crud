@@ -1,13 +1,19 @@
 const createModel = (sequelize, DataTypes) => {
   const Task = sequelize.define('Task', {
-    user_id: DataTypes.INTEGER,
+    userId: {
+      type: DataTypes.INTEGER,
+      field: 'user_id',
+    },
     name: DataTypes.STRING,
     description: DataTypes.STRING,
-    date_time: DataTypes.DATE,
+    dateTime: {
+      type: DataTypes.DATE,
+      field: 'date_time',
+    },
   }, {});
   Task.associate = (models) => {
     Task.belongsTo(models.User, {
-      foreignKey: 'user_Id',
+      foreignKey: 'user_id',
       as: 'owner',
     });
   };

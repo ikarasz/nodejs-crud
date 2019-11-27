@@ -1,8 +1,14 @@
 const createModel = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     username: DataTypes.STRING,
-    first_name: DataTypes.STRING,
-    last_name: DataTypes.STRING,
+    firstName: {
+      type: DataTypes.STRING,
+      field: 'first_name',
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      field: 'last_name',
+    },
   }, {});
   User.associate = (models) => {
     User.hasMany(models.Task, {
