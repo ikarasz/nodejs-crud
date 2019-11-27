@@ -40,6 +40,42 @@ describe('users service [createUser]', () => {
     }, done);
   });
 
+  it('should reject if user is duplicated', (done) => {
+    sinon.stub(storage, 'saveUser').rejects(new Error('duplicate_user'));
+    const dummyUser = {
+      username: 'a',
+      firstName: 'b',
+      lastName: 'c',
+    };
+
+    service.createUser(dummyUser)
+      .then(() => {
+        done(new Error('Didn\'t throw error'));
+      })
+      .catch((err) => {
+        expect(err.message).to.equal('duplicate_user');
+        done();
+      });
+  });
+
+  it('should reject if storage error occurs', (done) => {
+    sinon.stub(storage, 'saveUser').rejects(new Error('storage_error'));
+    const dummyUser = {
+      username: 'a',
+      firstName: 'b',
+      lastName: 'c',
+    };
+
+    service.createUser(dummyUser)
+      .then(() => {
+        done(new Error('Didn\'t throw error'));
+      })
+      .catch((err) => {
+        expect(err.message).to.equal('storage_error');
+        done();
+      });
+  });
+
   it('should call the storage', async () => {
     const expected = {};
     const dummyUser = {
