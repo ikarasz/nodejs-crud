@@ -19,3 +19,5 @@ I found some other options like
   - db-migrate
   - objection.js
   - js-data
+
+sequalize.import must been replaced because it breaks with es6 modules
