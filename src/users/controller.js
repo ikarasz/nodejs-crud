@@ -8,9 +8,15 @@ import {
 function handleError({ message }, res) {
   switch (message) {
     case INCOMPLETE_USER:
-      return res.sendStatus(400);
+      res.status(400);
+      return res.send({
+        error: 'invalid user',
+      });
     case DUPLICATE_USER:
-      return res.sendStatus(409);
+      res.status(409);
+      return res.send({
+        error: 'registered username',
+      });
     case STORAGE_ERROR:
     default:
       return res.sendStatus(500);
@@ -27,7 +33,12 @@ async function createUser(req, res) {
   try {
     const user = await userService.createUser({ username, firstName, lastName });
     res.status(201);
-    res.send(user);
+    res.send({
+      id: user.id,
+      username: user.username,
+      first_name: user.firstName,
+      last_name: user.lastName,
+    });
   } catch (err) {
     handleError(err, res);
   }

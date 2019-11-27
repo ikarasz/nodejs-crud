@@ -5,9 +5,12 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "migrate": "sequelize-esm db:migrate",
+    "migrate:reset": "sequelize-esm db:migrate:undo:all && npm run migrate",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "mocha -r esm src/**/*.test.js",
     "test:integration": "NODE_ENV=test mocha -r esm test/**/*.test.js",
+    "pretest:integration": "NODE_ENV=test npm run migrate:reset",
     "start": "node --experimental-modules src/index.js",
     "start:dev": "nodemon --experimental-modules src/index.js",
     "lint": "eslint --ext .js ."
