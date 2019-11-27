@@ -21,3 +21,11 @@ I found some other options like
   - js-data
 
 sequalize.import must been replaced because it breaks with es6 modules
+
+since there are no complex restrictions about the resource fields i will go with
+simple validation, however in a complex situation i would consider the use of
+express-validator
+
+cause of the simplicity i didn't care about value transformation,
+however based on the clean architecture i should transform the data
+at the boundaries of the services

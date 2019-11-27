@@ -6,7 +6,8 @@ module.exports = {
   'extends': 'airbnb-base',
   'globals': {
     'Atomics': 'readonly',
-    'SharedArrayBuffer': 'readonly'
+    'SharedArrayBuffer': 'readonly',
+    'UniqueConstraintError': 'readonly'
   },
   'parser': 'babel-eslint',
   'parserOptions': {
