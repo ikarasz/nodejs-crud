@@ -1,9 +1,8 @@
-import db from '../common/db.js';
+import storage from './storage.js';
 
 async function isDBAccessible() {
   try {
-    const { done } = await db.connect();
-    done();
+    await storage.connect();
     return true;
   } catch (err) {
     return false;

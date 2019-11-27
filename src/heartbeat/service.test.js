@@ -1,27 +1,25 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
 
-import db from '../common/db';
-import service from './service';
+import service from './service.js';
+import storage from './storage.js';
 
 describe('heartbeat service', () => {
   it('should return true if db is accessible', async () => {
-    const doneSpy = sinon.spy();
-    sinon.stub(db, 'connect').resolves({ done: doneSpy });
+    sinon.stub(storage, 'connect').resolves();
 
     const actual = await service.isDBAccessible();
 
     expect(actual).to.equal(true);
-    expect(doneSpy.calledOnce).to.equal(true);
   });
 
   it('should return false if db is not accessible', async () => {
-    sinon.stub(db, 'connect').rejects();
+    sinon.stub(storage, 'connect').rejects();
 
     const actual = await service.isDBAccessible();
 
     expect(actual).to.equal(false);
   });
 
-  afterEach(() => db.connect.restore());
+  afterEach(() => storage.connect.restore());
 });

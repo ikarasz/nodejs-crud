@@ -10,3 +10,12 @@ of course i couldn't change the exported pgp() method, further investigation is
 needed
 
 controllers are not tested, i focus on services because of the tiny timeframe
+
+babel eslint is needed because if meta.import
+
+sequelize the first i found and i'm not familiar with orm's in the node ecosystem
+however because of migration and testing i decided to use one of them
+I found some other options like
+  - db-migrate
+  - objection.js
+  - js-data
