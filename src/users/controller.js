@@ -2,6 +2,7 @@ import userService from './service.js';
 import {
   INCOMPLETE_USER,
   DUPLICATE_USER,
+  NOT_FOUND,
 } from '../common/errors.js';
 
 function getPublicErrorInfo({ message: errorMessage }) {
@@ -14,6 +15,9 @@ function getPublicErrorInfo({ message: errorMessage }) {
   } else if (DUPLICATE_USER === errorMessage) {
     status = 409;
     message = 'Registered username';
+  } else if (NOT_FOUND === errorMessage) {
+    status = 404;
+    message = 'User not found';
   }
 
   return { status, message };
@@ -42,6 +46,29 @@ async function createUser(req, res) {
   }
 }
 
+async function updateUser(req, res) {
+  const { id } = req.params;
+  const {
+    first_name: firstName,
+    last_name: lastName,
+  } = req.body;
+
+  try {
+    const user = await userService.updateUser(id, { firstName, lastName });
+    res.status(200);
+    res.send({
+      id,
+      username: user.username,
+      first_name: user.firstName,
+      last_name: user.lastName,
+    });
+  } catch (err) {
+    const { status, message: error } = getPublicErrorInfo(err);
+    res.status(status).send({ error });
+  }
+}
+
 export default {
   createUser,
+  updateUser,
 };

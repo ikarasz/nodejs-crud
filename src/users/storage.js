@@ -16,6 +16,30 @@ async function saveUser(userDetails) {
   }
 }
 
+async function updateUser(id, userData) {
+  try {
+    const [updated] = await models.User.update(userData, {
+      where: { id },
+      fields: Object.keys(userData),
+    });
+    return updated !== 0;
+  } catch (err) {
+    log('Cannot update user: ', { id, userData, err });
+    throw new Error(STORAGE_ERROR);
+  }
+}
+
+async function getUser(id) {
+  try {
+    return await models.User.findOne({ where: { id } });
+  } catch (err) {
+    log('Cannot retrieve user: ', { id, err });
+    throw new Error(STORAGE_ERROR);
+  }
+}
+
 export default {
   saveUser,
+  updateUser,
+  getUser,
 };
