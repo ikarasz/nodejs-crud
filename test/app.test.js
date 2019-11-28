@@ -16,6 +16,7 @@ describe('Default routes', () => {
       .expect('Content-Type', /json/)
       .expect(200, {
         heartbeat: '/heartbeat',
+        users: '/api/users',
       }, done);
   });
 

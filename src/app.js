@@ -10,6 +10,7 @@ app.use('/api/users', usersRouter);
 app.get('/', (req, res) => {
   res.send({
     heartbeat: '/heartbeat',
+    users: '/api/users',
   });
 });
 
