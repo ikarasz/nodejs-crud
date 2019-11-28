@@ -18,4 +18,6 @@ app.all('*', (req, res) => {
   res.send({ error: 'Not found' });
 });
 
+app.disable('x-powered-by');
+
 export default app;
