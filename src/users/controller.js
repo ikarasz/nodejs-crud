@@ -1,26 +1,22 @@
 import userService from './service.js';
 import {
-  STORAGE_ERROR,
   INCOMPLETE_USER,
   DUPLICATE_USER,
 } from '../common/errors.js';
 
-function handleError({ message }, res) {
-  switch (message) {
-    case INCOMPLETE_USER:
-      res.status(400);
-      return res.send({
-        error: 'invalid user',
-      });
-    case DUPLICATE_USER:
-      res.status(409);
-      return res.send({
-        error: 'registered username',
-      });
-    case STORAGE_ERROR:
-    default:
-      return res.sendStatus(500);
+function getPublicErrorInfo({ message: errorMessage }) {
+  let status = 500;
+  let message = 'Internal error';
+
+  if (INCOMPLETE_USER === errorMessage) {
+    status = 400;
+    message = 'Invalid user';
+  } else if (DUPLICATE_USER === errorMessage) {
+    status = 409;
+    message = 'Registered username';
   }
+
+  return { status, message };
 }
 
 async function createUser(req, res) {
@@ -33,6 +29,7 @@ async function createUser(req, res) {
   try {
     const user = await userService.createUser({ username, firstName, lastName });
     res.status(201);
+    res.links({ resource: `${req.originalUrl}/${user.id}` });
     res.send({
       id: user.id,
       username: user.username,
@@ -40,7 +37,8 @@ async function createUser(req, res) {
       last_name: user.lastName,
     });
   } catch (err) {
-    handleError(err, res);
+    const { status, message: error } = getPublicErrorInfo(err);
+    res.status(status).send({ error });
   }
 }
 
