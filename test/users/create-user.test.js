@@ -1,9 +1,9 @@
 import request from 'supertest';
 import sinon from 'sinon';
 import { expect } from 'chai';
-import app from './setup';
+import app from '../setup';
 
-import models from '../db/models/index.js';
+import models from '../../db/models/index.js';
 
 describe('[POST] /api/users', () => {
   let server;

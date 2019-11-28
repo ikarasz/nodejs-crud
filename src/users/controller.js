@@ -47,7 +47,7 @@ async function createUser(req, res) {
 }
 
 async function updateUser(req, res) {
-  const { id } = req.params;
+  const id = Number.parseInt(req.params.id, 10);
   const {
     first_name: firstName,
     last_name: lastName,
