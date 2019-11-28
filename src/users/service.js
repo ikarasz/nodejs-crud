@@ -25,10 +25,21 @@ async function updateUser(userId, { firstName, lastName }) {
   return storage.getUser(userId);
 }
 
+async function getUser(userId) {
+  const user = await storage.getUser(userId);
+
+  if (!user) {
+    throw new Error(NOT_FOUND);
+  }
+
+  return user;
+}
+
 const getUsers = (filters = {}) => storage.getUsers(filters);
 
 export default {
   createUser,
   updateUser,
   getUsers,
+  getUser,
 };

@@ -94,8 +94,27 @@ async function listUsers(req, res) {
   }
 }
 
+async function getUser(req, res) {
+  const userId = Number.parseInt(req.params.id, 10);
+  try {
+    const user = await userService.getUser(userId);
+
+    res.status(200);
+    res.send({
+      id: user.id,
+      username: user.username,
+      first_name: user.firstName,
+      last_name: user.lastName,
+    });
+  } catch (err) {
+    const { status, message: error } = getPublicErrorInfo(err);
+    res.status(status).send({ error });
+  }
+}
+
 export default {
   createUser,
   updateUser,
   listUsers,
+  getUser,
 };

@@ -9,7 +9,7 @@ router.get('/', controller.listUsers);
 router.post('/', controller.createUser);
 // router.all('/', (req, res) => res.sendStatus(405));
 
-// router.get('/:id', controller.getUser);
+router.get('/:id(\\d+)', controller.getUser);
 router.put('/:id', controller.updateUser);
 // router.all('/:id', (req, res) => res.sendStatus(405));
 

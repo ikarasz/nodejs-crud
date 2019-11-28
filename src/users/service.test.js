@@ -243,7 +243,6 @@ describe('users service [getUsers]', () => {
 
   it('should return items from storage', async () => {
     const expected = [{ a: 12, b: 13 }];
-
     sinon.stub(storage, 'getUsers').resolves(expected);
 
     const actual = await service.getUsers();
@@ -252,4 +251,49 @@ describe('users service [getUsers]', () => {
   });
 
   afterEach(() => storage.getUsers.restore());
+});
+
+describe('users service [getUsers]', () => {
+  it('should reject if storage error occurs', (done) => {
+    sinon.stub(storage, 'getUser').rejects(new Error('storage_error'));
+    const dummyUserId = 22;
+
+    service.getUser(dummyUserId)
+      .then(() => {
+        done(new Error('Didn\'t throw error'));
+      })
+      .catch((err) => {
+        expect(err.message).to.equal('storage_error');
+        done();
+      });
+  });
+
+  it('should throw error if user is not found', (done) => {
+    sinon.stub(storage, 'getUser').resolves(null);
+    const dummyUserId = 22;
+
+    service.getUser(dummyUserId)
+      .then(() => {
+        done(new Error('Didn\'t throw error'));
+      })
+      .catch((err) => {
+        expect(err.message).to.equal('entity_not_found');
+        done();
+      });
+  });
+
+  it('should call storage properly', async () => {
+    const dummyUserId = 333;
+    const expectedResult = { a: 12, b: 13 };
+    const getUserMock = sinon.mock(storage).expects('getUser')
+      .withExactArgs(dummyUserId)
+      .resolves(expectedResult);
+
+    const actualResult = await service.getUser(dummyUserId);
+
+    getUserMock.verify();
+    expect(actualResult).to.equal(expectedResult);
+  });
+
+  afterEach(() => storage.getUser.restore());
 });
