@@ -68,7 +68,34 @@ async function updateUser(req, res) {
   }
 }
 
+async function listUsers(req, res) {
+  const { username, first_name: firstName, last_name: lastName } = req.query;
+
+  try {
+    const users = await userService.getUsers({
+      ...(username && { username }),
+      ...(firstName && { firstName }),
+      ...(lastName && { lastName }),
+    });
+
+    const userList = users
+      .map((user) => ({
+        id: user.id,
+        username: user.username,
+        first_name: user.firstName,
+        last_name: user.lastName,
+      }));
+
+    res.status(200);
+    res.send(userList);
+  } catch (err) {
+    const { status, message: error } = getPublicErrorInfo(err);
+    res.status(status).send({ error });
+  }
+}
+
 export default {
   createUser,
   updateUser,
+  listUsers,
 };

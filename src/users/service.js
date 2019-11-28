@@ -25,7 +25,10 @@ async function updateUser(userId, { firstName, lastName }) {
   return storage.getUser(userId);
 }
 
+const getUsers = (filters = {}) => storage.getUsers(filters);
+
 export default {
   createUser,
   updateUser,
+  getUsers,
 };

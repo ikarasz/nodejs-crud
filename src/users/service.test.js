@@ -197,3 +197,59 @@ describe('users service [updateUser]', () => {
 
   afterEach(() => storage.updateUser.restore());
 });
+
+describe('users service [getUsers]', () => {
+  it('should reject if storage error occurs', (done) => {
+    sinon.stub(storage, 'getUsers').rejects(new Error('storage_error'));
+    const dummyFilters = {
+      username: 'a',
+      firstName: 'b',
+      lastName: 'c',
+    };
+
+    service.getUsers(dummyFilters)
+      .then(() => {
+        done(new Error('Didn\'t throw error'));
+      })
+      .catch((err) => {
+        expect(err.message).to.equal('storage_error');
+        done();
+      });
+  });
+
+  it('should call storage w/o filters', async () => {
+    const getUsersMock = sinon.mock(storage).expects('getUsers')
+      .withExactArgs({})
+      .resolves(true);
+
+    await service.getUsers();
+
+    getUsersMock.verify();
+  });
+
+  it('should pass filters to storage', async () => {
+    const dummyUser = {
+      username: 'a',
+      lastName: 'c',
+    };
+    const getUsersMock = sinon.mock(storage).expects('getUsers')
+      .withExactArgs({ ...dummyUser })
+      .resolves(true);
+
+    await service.getUsers(dummyUser);
+
+    getUsersMock.verify();
+  });
+
+  it('should return items from storage', async () => {
+    const expected = [{ a: 12, b: 13 }];
+
+    sinon.stub(storage, 'getUsers').resolves(expected);
+
+    const actual = await service.getUsers();
+
+    expect(actual).to.equal(expected);
+  });
+
+  afterEach(() => storage.getUsers.restore());
+});

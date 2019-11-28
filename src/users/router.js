@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.use(express.json());
 
-// router.get('/', controller.listUsers);
+router.get('/', controller.listUsers);
 router.post('/', controller.createUser);
 // router.all('/', (req, res) => res.sendStatus(405));
 

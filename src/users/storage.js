@@ -38,8 +38,26 @@ async function getUser(id) {
   }
 }
 
+async function getUsers(filters) {
+  try {
+    return await models.User.findAll({
+      where: Object.entries(filters)
+        .reduce((conditions, [key, value]) => ({
+          ...conditions,
+          [key]: {
+            [models.Sequelize.Op.iLike]: `%${value}%`,
+          },
+        }), {}),
+    });
+  } catch (err) {
+    log('Cannot retrieve user: ', { filters, err });
+    throw new Error(STORAGE_ERROR);
+  }
+}
+
 export default {
   saveUser,
   updateUser,
   getUser,
+  getUsers,
 };
