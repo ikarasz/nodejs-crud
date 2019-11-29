@@ -21,24 +21,26 @@ const sequelize = new Sequelize(
   config,
 );
 
-fs
+const modelFiles = fs
   .readdirSync(__dirname)
   .filter((file) => (
     file.indexOf('.') !== 0
     && (file !== basename)
     && (file.slice(-3) === '.js')
-  ))
-  .forEach(async (file) => {
+  ));
+
+Promise.all(
+  modelFiles.map(async (file) => {
     const { default: modelCreator } = await import(path.join(__dirname, file));
     const model = modelCreator(sequelize, Sequelize);
     db[model.name] = model;
-  });
-
-Object.keys(db).forEach((modelName) => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
-});
+    return model;
+  }),
+).then(
+  (models) => models
+    .filter((model) => model.associate)
+    .forEach((model) => model.associate(db)),
+);
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
