@@ -1,11 +1,13 @@
 import express from 'express';
 import heartbeatRouter from './heartbeat/router.js';
 import usersRouter from './users/router.js';
+import tasksRouter from './tasks/router.js';
 
 const app = express();
 
 app.use('/heartbeat', heartbeatRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/users/:userId(\\d+)/tasks', tasksRouter);
 
 app.get('/', (req, res) => {
   res.send({

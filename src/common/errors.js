@@ -7,3 +7,5 @@ export const INCOMPLETE_USER = 'invalid_user';
 export const DUPLICATE_USER = 'duplicate_user';
 
 // task error
+export const INCOMPLETE_TASK = 'invalid_task';
+export const TASK_OWNER_NOT_FOUND = 'owner_not_found';

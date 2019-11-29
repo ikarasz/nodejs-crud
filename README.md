@@ -28,3 +28,11 @@ at the boundaries of the services
 
 I cant stub the sequelize models so i cannot cover db errors in e2e
 tests
+
+Open questions:
+
+ - can a task have earlier date?
+ - is date mandatory or can we use current date by default?
+ - filtering results?
+ - do we need the foreign key on the task, or can we create
+   unassigned tasks?
