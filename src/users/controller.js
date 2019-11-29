@@ -33,12 +33,14 @@ async function createUser(req, res) {
   try {
     const user = await userService.createUser({ username, firstName, lastName });
     res.status(201);
-    res.links({ resource: `${req.originalUrl}/${user.id}` });
+    const resourceLink = `${req.originalUrl}/${user.id}`;
+    res.links({ resource: resourceLink });
     res.send({
       id: user.id,
       username: user.username,
       first_name: user.firstName,
       last_name: user.lastName,
+      tasks: `${resourceLink}/tasks`,
     });
   } catch (err) {
     const { status, message: error } = getPublicErrorInfo(err);
@@ -61,6 +63,7 @@ async function updateUser(req, res) {
       username: user.username,
       first_name: user.firstName,
       last_name: user.lastName,
+      tasks: `${req.originalUrl}/tasks`,
     });
   } catch (err) {
     const { status, message: error } = getPublicErrorInfo(err);
@@ -78,12 +81,15 @@ async function listUsers(req, res) {
       ...(lastName && { lastName }),
     });
 
+    const originalUrl = req.originalUrl.split('?').shift();
+
     const userList = users
       .map((user) => ({
         id: user.id,
         username: user.username,
         first_name: user.firstName,
         last_name: user.lastName,
+        tasks: `${originalUrl}/${user.id}/tasks`,
       }));
 
     res.status(200);
@@ -105,6 +111,7 @@ async function getUser(req, res) {
       username: user.username,
       first_name: user.firstName,
       last_name: user.lastName,
+      tasks: `${req.originalUrl}/tasks`,
     });
   } catch (err) {
     const { status, message: error } = getPublicErrorInfo(err);

@@ -64,6 +64,7 @@ describe('[GET] /api/users/:id', () => {
         username: 'jacko',
         first_name: 'Michael',
         last_name: 'Jackson',
+        tasks: '/api/users/1/tasks',
       })
       .end((err) => {
         if (err) return done(err);

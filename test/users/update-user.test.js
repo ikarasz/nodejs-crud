@@ -116,6 +116,7 @@ describe('[PUT] /api/users/:id', () => {
       id: 1,
       username: 'jacko',
       ...testRequestBody,
+      tasks: '/api/users/1/tasks',
     };
 
     verifyResponse(
@@ -137,6 +138,7 @@ describe('[PUT] /api/users/:id', () => {
       id: 1,
       ...testRequestBody,
       username: 'jacko',
+      tasks: '/api/users/1/tasks',
     };
 
     verifyResponse(

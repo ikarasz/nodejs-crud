@@ -151,6 +151,7 @@ describe('[POST] /api/users', () => {
     const expectedResponseBody = {
       id: 2,
       ...testRequestBody,
+      tasks: '/api/users/2/tasks',
     };
 
     function extraChecks(res) {

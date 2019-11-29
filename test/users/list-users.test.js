@@ -101,6 +101,7 @@ describe('[GET] /api/users', () => {
         username: 'jacko',
         first_name: 'Michael',
         last_name: 'Jackson',
+        tasks: '/api/users/1/tasks',
       }])
       .end((err) => {
         if (err) return done(err);
@@ -117,11 +118,13 @@ describe('[GET] /api/users', () => {
         username: 'jacko',
         first_name: 'Michael',
         last_name: 'Jackson',
+        tasks: '/api/users/1/tasks',
       }, {
         id: 3,
         username: 'wrangler',
         first_name: 'Bruce',
         last_name: 'Lee',
+        tasks: '/api/users/3/tasks',
       }])
       .end((err) => {
         if (err) return done(err);
@@ -138,6 +141,7 @@ describe('[GET] /api/users', () => {
         username: 'jinny',
         first_name: 'Xi',
         last_name: 'Jinping',
+        tasks: '/api/users/4/tasks',
       }])
       .end((err) => {
         if (err) return done(err);
@@ -154,6 +158,7 @@ describe('[GET] /api/users', () => {
         username: 'jinny',
         first_name: 'Xi',
         last_name: 'Jinping',
+        tasks: '/api/users/4/tasks',
       }])
       .end((err) => {
         if (err) return done(err);
@@ -170,11 +175,13 @@ describe('[GET] /api/users', () => {
         username: 'jacko',
         first_name: 'Michael',
         last_name: 'Jackson',
+        tasks: '/api/users/1/tasks',
       }, {
         id: 3,
         username: 'wrangler',
         first_name: 'Bruce',
         last_name: 'Lee',
+        tasks: '/api/users/3/tasks',
       }])
       .end((err) => {
         if (err) return done(err);
@@ -191,6 +198,7 @@ describe('[GET] /api/users', () => {
         username: 'poppp',
         first_name: 'Mary',
         last_name: 'Poppins',
+        tasks: '/api/users/2/tasks',
       }])
       .end((err) => {
         if (err) return done(err);
@@ -207,6 +215,7 @@ describe('[GET] /api/users', () => {
         username: 'poppp',
         first_name: 'Mary',
         last_name: 'Poppins',
+        tasks: '/api/users/2/tasks',
       }])
       .end((err) => {
         if (err) return done(err);
@@ -224,12 +233,14 @@ describe('[GET] /api/users', () => {
           username: 'jacko',
           first_name: 'Michael',
           last_name: 'Jackson',
+          tasks: '/api/users/1/tasks',
         },
         {
           id: 2,
           username: 'poppp',
           first_name: 'Mary',
           last_name: 'Poppins',
+          tasks: '/api/users/2/tasks',
         },
       ])
       .end((err) => {
