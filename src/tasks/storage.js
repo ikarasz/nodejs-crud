@@ -1,6 +1,6 @@
 import models from '../../db/models/index.js';
 import { STORAGE_ERROR, TASK_OWNER_NOT_FOUND } from '../common/errors.js';
-import userStorage from '../users/storage';
+import userStorage from '../users/storage.js';
 import log from '../common/logger.js';
 
 async function saveTask(taskDetails) {
