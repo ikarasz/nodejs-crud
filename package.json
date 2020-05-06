@@ -6,11 +6,11 @@
   "type": "module",
   "scripts": {
     "migrate": "sequelize-esm db:migrate",
-    "migrate:reset": "sequelize-esm db:migrate:undo:all && npm run migrate",
-    "test": "npm run test:unit && npm run test:e2e",
+    "migrate:reset": "sequelize-esm db:migrate:undo:all && yarn migrate",
+    "test": "yarn test:unit && yarn test:e2e",
     "test:unit": "mocha -r esm --recursive  src/**/*.test.js",
     "test:e2e": "NODE_ENV=test mocha -r esm --recursive test/",
-    "pretest:e2e": "NODE_ENV=test npm run migrate:reset",
+    "pretest:e2e": "NODE_ENV=test yarn migrate:reset",
     "start": "node --experimental-modules src/index.js",
     "start:dev": "nodemon --experimental-modules src/index.js",
     "lint": "eslint --ext .js ."
